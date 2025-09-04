@@ -1,0 +1,17 @@
+<nav class="h-5rem flex align-items-center justify-content-between px-4" [style]="{ backgroundColor: 'var(--surface-card)', borderBottom: '1px solid var(--surface-border)' }">
+    <section class="flex align-items-center gap-1">
+        <p-button icon="pi pi-bars" [rounded]="true" [text]="true" (onClick)="toggleSidebar()" />
+        <img src="assets/img/vf.png" alt="VF" class="w-2rem h-auto">
+        <p class="m-0 font-semibold">{{appName}}</p>
+    </section>
+    <p class="m-0 text-primary hidden md:block">{{email}}</p>
+</nav>
+
+<p-sidebar [(visible)]="sidebarVisible">
+    <p-panelMenu [model]="sidebarItems" styleClass="w-full" />
+    <ng-template pTemplate="header">
+        <div class="flex justify-content-center align-items-center">
+            <h3 class="text-base text-primary">{{appName}}</h3>
+        </div>
+    </ng-template>
+</p-sidebar>

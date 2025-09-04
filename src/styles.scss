@@ -1,0 +1,26 @@
+// Breakpoints
+$sm : 576px;
+$md : 768px;
+$lg : 992px;
+$xl : 1200px;
+
+body {
+    margin: 0;
+    background-color: var(--surface-ground);
+    font-family: var(--font-family);
+}
+
+.responsive_card {
+    width: 80%;
+
+    @media (min-width: $lg) {
+        width: 40vw;
+    }
+    @media (min-width: $xl) {
+        width: 30vw;
+    }
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}

@@ -1,0 +1,112 @@
+<form class="grid" [formGroup]="form" (ngSubmit)="submit()">
+    <section class="col-12">
+        <p class="text-2xl font-semibold m-0 text-primary">Mis datos</p>
+        <p-divider></p-divider>
+    </section>
+    <section class="col-12 md:col-10 md:col-offset-1 lg:col-6 lg:col-offset-3 xl:col-4 xl:col-offset-4">
+        <p class="m-0 text-sm mb-2">Correo Electrónico</p>
+        <input
+          formControlName="email"
+          type="email"
+          pInputText
+          placeholder="tu@email.com"
+          class=" w-full"
+          [attr.aria-invalid]="f.email.invalid && (f.email.touched || submitted)"
+          autocomplete="email"
+        />
+        <small
+          class="p-error"
+          *ngIf="(f.email.touched || submitted) && f.email.errors?.['required']"
+        >
+          El correo es obligatorio.
+        </small>
+        <small
+          class="p-error"
+          *ngIf="(f.email.touched || submitted) && f.email.errors?.['email']"
+        >
+          Formato de correo inválido.
+        </small>
+        <small
+          class="p-error"
+          *ngIf="(f.email.touched || submitted) && f.email.errors?.['empty']"
+        >
+          No puede ser solo espacios.
+        </small>
+    </section>
+    <section class="col-12 md:col-10 md:col-offset-1 lg:col-6 lg:col-offset-3 xl:col-4 xl:col-offset-4">
+        <p class="m-0 text-sm mb-2">Nombre</p>
+        <input
+          formControlName="firstName"
+          type="text"
+          pInputText
+          placeholder="Juan"
+          class="w-full"
+          [attr.aria-invalid]="f.firstName.invalid && (f.firstName.touched || submitted)"
+        />
+        <small
+          class="p-error"
+          *ngIf="(f.firstName.touched || submitted) && f.firstName.errors?.['required']"
+        >
+          El nombre es obligatorio.
+        </small>
+        <small
+          class="p-error"
+          *ngIf="(f.firstName.touched || submitted) && f.firstName.errors?.['empty']"
+        >
+          No puede ser solo espacios.
+        </small>
+    </section>
+    <section class="col-12 md:col-10 md:col-offset-1 lg:col-6 lg:col-offset-3 xl:col-4 xl:col-offset-4">
+        <p class="m-0 text-sm mb-2">Apellido</p>
+        <input
+          formControlName="lastName"
+          type="text"
+          pInputText
+          placeholder="Pérez"
+          class="w-full"
+          [attr.aria-invalid]="f.lastName.invalid && (f.lastName.touched || submitted)"
+        />
+        <small
+          class="p-error"
+          *ngIf="(f.lastName.touched || submitted) && f.lastName.errors?.['required']"
+        >
+          El apellido es obligatorio.
+        </small>
+        <small
+          class="p-error"
+          *ngIf="(f.lastName.touched || submitted) && f.lastName.errors?.['empty']"
+        >
+          No puede ser solo espacios.
+        </small>
+    </section>
+    <section class="col-12 md:col-10 md:col-offset-1 lg:col-6 lg:col-offset-3 xl:col-4 xl:col-offset-4">
+        <p class="m-0 text-sm mb-2">Fecha de Nac.</p>
+        <p-calendar formControlName="birthDate" appendTo="body" styleClass="w-full" dateFormat="yy-mm-dd" [touchUI]="true"  />
+        <small
+          class="p-error"
+          *ngIf="(f.birthDate.touched || submitted) && f.birthDate.errors?.['required']"
+        >
+          La fecha de nacimiento es obligatoria.
+        </small>
+        <small
+          class="p-error"
+          *ngIf="(f.birthDate.touched || submitted) && f.birthDate.errors?.['empty']"
+        >
+          No puede ser solo espacios.
+        </small>
+    </section>
+    <section class="col-12 md:col-10 md:col-offset-1 lg:col-6 lg:col-offset-3 xl:col-4 xl:col-offset-4">
+        <p-button
+            [icon]="'pi pi-user-edit'"
+            [loading]="submitted"
+            [disabled]="form.invalid || submitted"
+            label="Guardar datos"
+            type="submit"
+            styleClass="w-full mt-2"
+            [disabled]="form.invalid || form.pending"
+        >
+        </p-button>
+    </section>
+</form>
+
+<p-toast position="top-center" [style]="{'max-width':'calc(100vw - 2rem)'}"></p-toast>
