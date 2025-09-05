@@ -129,30 +129,38 @@ export class TestResultsComponent {
 
   sendResults = () => {
 
-    const recommendationsHtml = this.recommendations.map(r => {
-      // 1. Crear un Set para eliminar duplicados
-      const uniqueUniversities = [...new Set(r.universidades.map(u => u.ies))];
-    
-      // 2. Tomar solo las primeras 5 universidades
-      const limitedUniversities = uniqueUniversities.slice(0, 5);
-    
-      // 3. Generar lista <ul> con estilos inline
+    const limitedRecs = this.recommendations.slice(0, 10); // solo 10 profesiones
+
+    const recommendationsHtml = limitedRecs.map(r => {
+      const uniqueUniversities = [...new Set(r.universidades.map(u => u.ies))].slice(0, 5);
       const universitiesList = `
-        <ul style="margin:0; padding-left:16px; color:#d4d4d8; list-style-type:disc;">
-          ${limitedUniversities.map(u => `
-            <li style="margin-bottom:4px;">${u}</li>
-          `).join('')}
+        <ul style="margin:0;padding-left:14px;color:#d4d4d8;">
+          ${uniqueUniversities.map(u => `<li>${u}</li>`).join('')}
         </ul>
       `;
-    
-      // 4. Retornar fila completa
+
       return `
         <tr>
-          <td style="border-bottom:1px solid #2d2d30; color:#ffffff;">${r.profesion}</td>
+          <td style="border-bottom:1px solid #2d2d30;color:#fff;">${r.profesion}</td>
           <td style="border-bottom:1px solid #2d2d30;">${universitiesList}</td>
         </tr>
       `;
-    }).join('');    
+    }).join('');   
+
+    const linkRow = `
+      <tr>
+        <td colspan="2" style="padding-top:12px;">
+          <p style="font-size:14px;color:#d4d4d8;margin:0;">
+            Para ver la lista completa de recomendaciones, ingresá a
+            <a href="https://vocacional-finder.netlify.app/" style="color:#5eead4;text-decoration:none;">
+              vocacional-finder.netlify.app
+            </a>
+          </p>
+        </td>
+      </tr>
+    `;
+
+    const fullHtml = recommendationsHtml + linkRow;
 
     emailjs.send('service_t7h94z3', 'template_vf_results', {
       user_name: this.person.firstName + ' ' + this.person.lastName,
@@ -160,7 +168,7 @@ export class TestResultsComponent {
       top2: this.top3[1].name,
       top3: this.top3[2].name,
       total_score: this.sectionScores.reduce((sum, s) => sum + s.score, 0),
-      recommendations: recommendationsHtml,
+      recommendations: fullHtml,
       name: 'Vocacional Finder',
       to_email: this.person.email
     }, 'MVcM7HA-dBNaWXXZI');

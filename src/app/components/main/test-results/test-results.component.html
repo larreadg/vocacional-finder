@@ -53,7 +53,7 @@
       </p-table>
     </section>
     <section class="col-12 md:col-10 md:col-offset-1">
-      <p class="text-xl font-semibold m-0 text-primary">Detalles del test por área</p>
+      <p class="text-xl font-semibold m-0 text-primary">Detalles del test</p>
       <p-divider></p-divider>
     </section>
     <section class="col-12 md:col-10 md:col-offset-1">
@@ -80,7 +80,7 @@
         </ng-template>
       </p-table>
     </section>
-    <section class="col-12 md:col-10 md:col-offset-1">
+    <section class="col-12 md:col-10 md:col-offset-1" *ngIf="testFinished">
       <section class="flex justify-content-center lg:justify-content-end gap-2">
         <p-button label="Borrar todo" styleClass="p-button-danger" icon="pi pi-trash" (onClick)="resetVisible = true" />
         <p-button label="Enviar resultados" icon="pi pi-send" (onClick)="sendResults()" />
