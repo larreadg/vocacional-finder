@@ -41,9 +41,9 @@ export interface Question {
 // (Opcional) respuestas y sesiones
 export interface Answer {
   id?: number;
+  personId: number;
   questionId: number;
   value: 1 | 2 | 3 | 4 | 5;
-  attemptId: string; // UUID de la sesión de test
 }
 
 export interface Person {
@@ -54,11 +54,4 @@ export interface Person {
   email: string; // para enviar el resultado
   createdAt: string; // ISO
   updatedAt: string; // ISO
-}
-
-// Vinculamos la sesión (Attempt) con la persona
-export interface Attempt {
-  id: string; // UUID
-  createdAt: string; // ISO
-  personId: number; // FK -> Person.id
 }

@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Person } from '../../models';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { PersonAttemptService } from '../../services/person-attempt.service';
 import { Router } from '@angular/router';
+import { PersonService } from '../../services/person.service';
 
 @Component({
   selector: 'app-main',
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   `,
 })
 export class MainComponent implements OnInit {
-  private api = inject(PersonAttemptService)
+  private api = inject(PersonService)
   private router = inject(Router)
   async ngOnInit() {
     const person: Person | null = await this.api.getFirstPerson()

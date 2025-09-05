@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CONSTANTS } from '../../const';
-import { PersonAttemptService } from '../../services/person-attempt.service';
 import { CommonModule } from '@angular/common';
+import { PersonService } from '../../services/person.service';
 import { Person } from '../../models';
 import { Router } from '@angular/router';
 import dayjs from 'dayjs';
@@ -29,7 +29,7 @@ import { CalendarModule } from 'primeng/calendar';
 export class WelcomeComponent implements OnInit {
   appName = CONSTANTS.appName
   submitted = false
-  private api = inject(PersonAttemptService)
+  private api = inject(PersonService)
   private fb   = inject(FormBuilder)
   private router = inject(Router)
   form = this.fb.nonNullable.group({
@@ -79,7 +79,7 @@ export class WelcomeComponent implements OnInit {
     this.submitted = true
     const body = this.form.getRawValue()
     
-    await this.api.upsertPersonAndStartAttempt({
+    await this.api.upsertPerson({
       birthDate: dayjs(body.birthDate).format('YYYY-MM-DD'),
       email: body.email,
       firstName: body.firstName,

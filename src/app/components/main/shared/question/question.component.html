@@ -1,1 +1,17 @@
-<p>question works!</p>
+<p-fieldset legend="{{_question.text}}" [toggleable]="true">
+    <section class="grid">
+        <section class="col-12 md:col-6 lg:col-4" *ngFor="let op of optionValues">
+            <section class="flex align-items-center gap-1">
+                <p-radioButton 
+                name="Op-{{op.value}}" 
+                value="{{op.value}}" 
+                [(ngModel)]="selectedValue" 
+                inputId="{{_question.text}}-{{op.value}}"
+                styleClass="my-2" (ngModelChange)="onChangeSelectedValue()" />
+                <label for="{{_question.text}}-{{op.value}}" class="text-sm">
+                    {{op.label}}
+                </label>
+            </section>
+        </section>
+    </section>
+</p-fieldset>

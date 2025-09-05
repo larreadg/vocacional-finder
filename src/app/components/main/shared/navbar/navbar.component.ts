@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CONSTANTS } from '../../../../const';
 import { Person } from '../../../../models';
-import { PersonAttemptService } from '../../../../services/person-attempt.service';
+import { PersonService } from '../../../../services/person.service';
 
 // Primeng
 import { ButtonModule } from 'primeng/button';
@@ -21,7 +21,7 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
-  private api = inject(PersonAttemptService)
+  private api = inject(PersonService)
   appName = CONSTANTS.appName
   email: string = ''
   sidebarVisible: boolean = false
@@ -45,14 +45,14 @@ export class NavbarComponent implements OnInit {
       routerLink: '/vf/results',
       command: () => this.toggleSidebar()
     },
-    {
-      label: 'Acerca de nosotros',
-      icon: 'pi pi-info-circle',
-      command: () => {
-        this.aboutUsVisible = true
-        this.toggleSidebar()
-      }
-    }
+    // {
+    //   label: 'Acerca de nosotros',
+    //   icon: 'pi pi-info-circle',
+    //   command: () => {
+    //     this.aboutUsVisible = true
+    //     this.toggleSidebar()
+    //   }
+    // }
   ]
   async ngOnInit() {
     const person: Person | null = await this.api.getFirstPerson()

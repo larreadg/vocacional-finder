@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CONSTANTS } from '../../../const';
-import { PersonAttemptService } from '../../../services/person-attempt.service';
+import { PersonService } from '../../../services/person.service';
 import { CommonModule } from '@angular/common';
 import { Person } from '../../../models';
 import dayjs from 'dayjs';
@@ -35,7 +35,7 @@ export class MeComponent implements OnInit {
   appName = CONSTANTS.appName
   submitted = false
   private toast = inject(MessageService)
-  private api = inject(PersonAttemptService)
+  private api = inject(PersonService)
   private fb   = inject(FormBuilder)
   form = this.fb.nonNullable.group({
     email: this.fb.nonNullable.control(
@@ -83,8 +83,8 @@ export class MeComponent implements OnInit {
     if (this.form.invalid) return;
     this.submitted = true
     const body = this.form.getRawValue()
-    
-    await this.api.upsertPersonAndStartAttempt({
+    console.log(body)
+    await this.api.upsertPerson({
       birthDate: dayjs(body.birthDate).format('YYYY-MM-DD'),
       email: body.email,
       firstName: body.firstName,

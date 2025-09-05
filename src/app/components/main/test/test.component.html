@@ -1,1 +1,43 @@
-<p>test works!</p>
+<section class="grid">
+  <section class="col-12 md:col-10 md:col-offset-1" *ngIf="progressCurrent < progressTotal && sections && sections.length > 0">
+    <p-progressBar [value]="(progressCurrent/progressTotal) * 100">
+        <ng-template pTemplate="content" let-value> 
+            <span>{{progressCurrent}}/{{progressTotal}}</span>    
+        </ng-template>
+    </p-progressBar>
+  </section>
+  <section class="col-12 md:col-10 md:col-offset-1" *ngIf="progressCurrent >= progressTotal">
+    <p-messages severity="success">
+        <ng-template pTemplate>
+            <p>Ya completaste el test, para ver tus resultados hacé clic <b routerLink="/vf/results" [style]="{ cursor: 'pointer', textDecoration: 'underline' }">aquí</b></p>
+        </ng-template>
+    </p-messages>
+  </section>
+  <section class="col-12 md:col-10 md:col-offset-1">
+    <p-stepper orientation="vertical" *ngIf="sections && sections.length > 0">
+        <ng-container *ngFor="let section of sections">
+            <p-stepperPanel>
+                <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+                    <section class="flex p-2 align-items-center gap-2" (click)="onClick.emit()">
+                        <p class="m-0">Sección {{section.section}}</p>
+                        <ng-container *ngIf="progressSections[section.section]">
+                            <i class="pi pi-check-circle text-primary"></i>
+                        </ng-container>
+                    </section>
+                </ng-template>
+                <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback" let-index="index">
+                    <div class="flex flex-column gap-2 p-4">
+                        <ng-container *ngFor="let pregunta of section.items">
+                            <app-question [question]="pregunta" [person]="person" (answered)="watchProgress()"></app-question>
+                        </ng-container>
+                    </div>
+                    <div class="flex py-4 gap-2">
+                        <p-button *ngIf="index > 0" label="Anterior" severity="secondary" (onClick)="prevCallback.emit()" styleClass="p-button-sm" />
+                        <p-button *ngIf="index < sections.length - 1" label="Siguiente" (onClick)="nextCallback.emit()" styleClass="p-button-sm" />
+                    </div>
+                </ng-template>
+            </p-stepperPanel>
+        </ng-container>
+    </p-stepper>
+  </section>
+</section>

@@ -1,21 +1,19 @@
 import Dexie, { Table } from 'dexie';
-import { Section, Question, Answer, Attempt, SECTION_NAMES, SectionCode, Person } from './models';
+import { Section, Question, Answer, SECTION_NAMES, SectionCode, Person } from './models';
 
 export class VocationalDb extends Dexie {
   sections!: Table<Section, string>; // PK: code
   questions!: Table<Question, number>;
   answers!: Table<Answer, number>;
-  attempts!: Table<Attempt, string>;
   persons!: Table<Person, number>;
 
   constructor() {
     super('vocational-db');
     this.version(1).stores({
-        sections: 'code',
-        questions: '++id, section, order',
-        answers: '++id, attemptId, questionId',
-        attempts: 'id, createdAt, personId',
-        persons: '++id, email, lastName, firstName'
+      sections: 'code',
+      questions: '++id, section, order, [section+order]',
+      persons: '++id, email, lastName, firstName, birthDate',
+      answers: '++id, personId, questionId, [personId+questionId]' // <-- índice
     })
   }
 }

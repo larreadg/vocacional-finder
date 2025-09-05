@@ -1,0 +1,7 @@
+:host ::ng-deep .p-stepper .p-stepper-header .p-stepper-action {
+    padding: 0.25rem 0.5rem;
+}
+
+:host ::ng-deep .p-stepper-vertical .p-stepper-panel-active>.p-stepper-toggleable-content:not(.ng-animating) {
+    border-radius: 0.25rem;
+}
